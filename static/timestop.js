@@ -102,7 +102,7 @@ function _ws_base(url, on_success, on_failure) {
             }
         }
     }
-    xhr.open('GET', url, false);
+    xhr.open('GET', url, true);
     xhr.send(null);
 }
 
