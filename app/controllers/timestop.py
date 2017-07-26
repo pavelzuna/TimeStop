@@ -22,9 +22,12 @@ class log:
         logs = web.ctx.orm.query(Log).order_by(desc(Log.date)).all()
         total_time = datetime.timedelta(0)
         date_now = datetime.datetime.utcnow()
-        for l in logs:
+        for (i, l) in enumerate(logs):
             if l.type == 'STOP':
-                total_time += date_now - l.date;
+                # ignore consecutive STOPs, can happen due to race condition
+                if i < (len(logs) - 1) and logs[i + 1].type == 'STOP':
+                    continue
+                total_time += date_now - l.date
             else:
                 date_now = l.date;
         total_seconds = total_time.total_seconds()
