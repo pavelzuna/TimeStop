@@ -1,0 +1,27 @@
+$def with (datetime, logs, total)
+
+<html>
+<head>
+    <title>TimeStop Log</title>
+    <link rel="stylesheet" type="text/css" href="/static/timestop.css"></style>
+</head>
+<body>
+    <p>LOG</p>
+    <p><a href="/">Home</a></p>
+    <p>Total time stopped: $total</p>
+    <table>
+        <thead>
+            <tr>
+                <th>EVENT</th>
+                <th>DATE</th>
+            </tr>
+        </thead>
+        <tbody>
+            $for l in logs:
+                <tr><td>$l.type</td><td>$datetime.datetime.strftime(l.date, '%Y-%m-%d %H:%M:%S')</td></tr>
+        </tbody>
+    </table>
+    <p><a href="/">Home</a></p>
+</body>
+</html>
+

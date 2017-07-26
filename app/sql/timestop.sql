@@ -1,0 +1,6 @@
+CREATE TABLE logs (
+	id INTEGER NOT NULL, 
+	type VARCHAR NOT NULL, 
+	date DATETIME NOT NULL, 
+	PRIMARY KEY (id)
+);

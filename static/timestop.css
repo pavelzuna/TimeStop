@@ -1,0 +1,43 @@
+/* timestop.css */
+
+body {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14pt;
+}
+
+table {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14pt;
+    font-family: monospace;
+}
+
+td {
+    min-width: 100px;
+}
+
+p {
+    font-family: monospace;
+}
+
+input[type=button] {
+    min-width: 100px;
+    min-height: 30px;
+}
+
+#notice {
+    color: #ff0000;
+    display: none;
+    font-size: 10pt;
+    margin-top: -1em;
+    margin-bottom: -1em;
+}
+
+#time {
+    font-size: 32pt;
+}
+
+/* end of file */

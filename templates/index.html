@@ -1,0 +1,25 @@
+$def with (datetime, lasttime, stopped=False)
+
+<html>
+<head>
+    <title>TimeStop</title>
+    <script type="text/javascript">
+        $if stopped:
+            var stopped = true;
+        $else:
+            var stopped = false;
+    </script>
+    <script type="text/javascript" src="/static/timestop.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/timestop.css"></style>
+</head>
+<body onload="javascript: setup();">
+    <p>UTC TIME</p>
+    <p id="notice">The time is currently stopped.</p>
+    <p id="time">
+        $datetime.datetime.strftime(lasttime, '%Y-%m-%d')<br />
+        $datetime.datetime.strftime(lasttime, '%H:%M:%S')
+    </p>
+    <input type="button" id="stop" name="stop" value="STOP" disabled /> | <input type="button" id="restart" name="restart" value="RESTART" disabled /><br />
+    <p><a href="/log/">View log</a></p>
+</body>
+</html>

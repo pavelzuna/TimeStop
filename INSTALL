@@ -1,0 +1,16 @@
+1) install Python 2.7
+2) git clone XYZ
+3) cd TimeStop
+4) pip install web.py
+5) pip install sqlalchemy
+6) python init-db.py
+
+To run the server:
+
+python run.py
+
+To use app:
+
+point your browser to: http://localhost:8080/
+
+
