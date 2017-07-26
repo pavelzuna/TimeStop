@@ -20,7 +20,10 @@ $def with (datetime, logs, total)
         </thead>
         <tbody>
             $for l in logs:
-                <tr><td>$l.type</td><td>$datetime.datetime.strftime(l.date, '%Y-%m-%d %H:%M:%S')</td></tr>
+                $if l.type == 'STOP' or l.type == 'RESTART':
+                    <tr><td>$l.type</td><td>$datetime.datetime.strftime(l.date, '%Y-%m-%d %H:%M:%S')</td></tr>
+                $else:
+                    <tr><td class="gray" colspan="2">$l.type</td></tr>
         </tbody>
     </table>
     <p><a href="/">Home</a></p>

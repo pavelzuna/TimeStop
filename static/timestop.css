@@ -19,6 +19,10 @@ td {
     min-width: 100px;
 }
 
+.gray {
+    color: #888888;
+}
+
 p {
     font-family: monospace;
 }

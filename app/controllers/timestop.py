@@ -18,8 +18,20 @@ class index:
             return view.index(datetime, logs[0].date, True)
 
 class log:
+    def _compute_gap(self, total_seconds):
+        days = int(total_seconds / (3600 * 24))
+        total_seconds -= days * 3600 * 24
+        hours = int(total_seconds / 3600)
+        total_seconds -= hours * 3600
+        minutes = int(total_seconds / 60)
+        total_seconds -= minutes * 60;
+        return '%d days, %d hours, %d minutes, %d seconds' % (
+            days, hours, minutes, total_seconds + 0.5
+        )
+
     def GET(self):
         logs = web.ctx.orm.query(Log).order_by(desc(Log.date)).all()
+        output = []
         total_time = datetime.timedelta(0)
         date_now = datetime.datetime.utcnow()
         for (i, l) in enumerate(logs):
@@ -27,21 +39,14 @@ class log:
                 # ignore consecutive STOPs, can happen due to race condition
                 if i < (len(logs) - 1) and logs[i + 1].type == 'STOP':
                     continue
-                total_time += date_now - l.date
+                delta = date_now - l.date 
+                output.append(Log(self._compute_gap(delta.total_seconds()), l.date))
+                total_time += delta
+                output.append(l)
             else:
                 date_now = l.date;
-        total_seconds = total_time.total_seconds()
-        days = int(total_seconds / (3600 * 24))
-        total_seconds -= days * 3600 * 24
-        hours = int(total_seconds / 3600)
-        total_seconds -= hours * 3600
-        minutes = int(total_seconds / 60)
-        total_seconds -= minutes * 60;
-        return view.log(
-            datetime, logs,
-            '%d days, %d hours, %d minutes, %d seconds' % (
-                days, hours, minutes, total_seconds + 0.5
-        ))
+                output.append(l)
+        return view.log(datetime, output, self._compute_gap(total_time.total_seconds()))
 
 class check:
     def GET(self):
